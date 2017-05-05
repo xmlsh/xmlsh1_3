@@ -1,0 +1,43 @@
+repositories {
+  jcenter()
+}
+configurations { 
+  extlib
+}
+def sdks = [
+   'aws-java-sdk-s3',
+   'aws-java-sdk-simpledb',
+   'aws-java-sdk-cloudformation',
+   'aws-java-sdk-ec2',
+   'aws-java-sdk-elasticloadbalancing',
+   'aws-java-sdk-dynamodb',
+   'aws-java-sdk-cloudwatch',
+   'aws-java-sdk-sqs',
+   'aws-java-sdk-sns',
+   'aws-java-sdk-glacier',
+   'aws-java-sdk-autoscaling' ]
+
+
+
+def minsdks = [
+   'aws-java-sdk-s3',
+   'aws-java-sdk-simpledb',
+   'aws-java-sdk-ec2',
+   'aws-java-sdk-dynamodb',
+   'aws-java-sdk-sqs',
+   'aws-java-sdk-sns']
+
+ext {
+  awsJavaSdkVersion = '1.11.72'
+}
+dependencies {
+   sdks.each {
+     extlib( group:'com.amazonaws' , name: it, version: awsJavaSdkVersion )
+   }
+   extlib 'bouncycastle:bcprov-jdk16:140'
+}
+
+task deps( type: Copy , dependsOn: configurations.extlib ) {
+    into "lib"
+    from configurations.extlib
+}

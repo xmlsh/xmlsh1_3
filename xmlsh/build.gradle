@@ -1,0 +1,52 @@
+repositories {
+  jcenter()
+}
+configurations { 
+  extlib
+}
+
+
+dependencies {
+    extlib "org.apache.ant:ant:1.9+"
+    extlib 'com.thaiopensource:trang:20091111' ,
+            'com.thaiopensource:jing:20091111'
+
+    extlib 'org.apache.logging.log4j:log4j-api:2.+' ,
+            'org.apache.logging.log4j:log4j-core:2.+'
+
+    extlib 'com.fasterxml.jackson.core:jackson-annotations:2.+',
+            'com.fasterxml.jackson.core:jackson-core:2.+',
+            'com.fasterxml.jackson.core:jackson-databind:2.+',
+            'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.+',
+            'com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2+',
+            'com.fasterxml.jackson.module:jackson-module-jsonSchema:2.+'
+    extlib 'commons-codec:commons-codec:1+',
+            'commons-io:commons-io:2.+',
+            'commons-logging:commons-logging:1.1.3+'
+    extlib  'org.apache.httpcomponents:httpclient:4.3'
+            'org.apache.httpcomponents:httpcore:4.3'
+    extlib 'com.fasterxml.woodstox:woodstox-core:latest.release'
+    extlib 'org.slf4j:slf4j-api:latest.release'
+            
+
+	extlib 'org.dynalang:dynalink:0.7'
+
+    extlib 'com.jayway.jsonpath:json-path:2.+'
+    extlib 'org.ccil.cowan.tagsoup:tagsoup:1.+'
+    extlib  'xerces:xercesImpl:2.+'
+    extlib 'xml-resolver:xml-resolver:1.2+'
+    extlib 'xom:xom:latest.release'
+    extlib ('net.sf.saxon:Saxon-HE:9.6.+' ){ force=true  }
+    extlib "org.projectlombok:lombok:+"
+    extlib  'saxon:saxon:6.5.+'
+    extlib 'net.sf.supercsv:super-csv:2.3+'
+
+    extlib  group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl' , version: '2.+'
+
+   extlib 'bouncycastle:bcprov-jdk16:140'
+}
+
+task deps( type: Copy , dependsOn: configurations.extlib ) {
+    into "lib"
+    from configurations.extlib
+}
